@@ -5,8 +5,23 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_image.h>
 
+#include <cstdlib>
+#include <iostream>   
+#include <ctime>
+
 int main () 
 {
+
+		int i;
+
+		srand(time(NULL));
+		i = rand();
+		std::cout << "Your random number is " << i << std::endl;
+		std::cout << "This compiler can generate random numbers from 0 to "
+			<< RAND_MAX << std::endl;
+
+	
+
 	al_init();
 	al_init_primitives_addon();
 	al_init_font_addon();
@@ -16,6 +31,7 @@ int main ()
 	int width = 900;
 	int height = 900;
 	int tamFont = 32;
+	int randomX, randomY;
 	float x1, x2, y1, y2,porcent,posTexto,border;
 	
 	porcent = 0.1;
@@ -50,6 +66,8 @@ int main ()
 	al_draw_bitmap(cheese, 300, 360, NULL);
 	al_draw_bitmap(lair, 200, 360, NULL);
 	al_draw_text(font, darkBrown, width / 2, posTexto, ALLEGRO_ALIGN_CENTRE, "T R A N S F O R M I C E");
+	
+	al_draw_filled_rectangle(randomX, randomY, randomX + 10, randomY + 10);
 
 	al_flip_display();
 	al_rest(20);
