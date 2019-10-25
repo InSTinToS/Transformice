@@ -11,17 +11,6 @@
 
 int main () 
 {
-
-		int i;
-
-		srand(time(NULL));
-		i = rand();
-		std::cout << "Your random number is " << i << std::endl;
-		std::cout << "This compiler can generate random numbers from 0 to "
-			<< RAND_MAX << std::endl;
-
-	
-
 	al_init();
 	al_init_primitives_addon();
 	al_init_font_addon();
@@ -67,7 +56,7 @@ int main ()
 	al_draw_bitmap(lair, 200, 360, NULL);
 	al_draw_text(font, darkBrown, width / 2, posTexto, ALLEGRO_ALIGN_CENTRE, "T R A N S F O R M I C E");
 	
-	al_draw_filled_rectangle(randomX, randomY, randomX + 10, randomY + 10);
+	al_draw_filled_rectangle(randomX, randomY, randomX + 10, randomY + 10, darkBrown);
 
 	al_flip_display();
 	al_rest(20);
