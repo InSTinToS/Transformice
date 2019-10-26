@@ -1,2 +1,4 @@
 ﻿  Origem.cpp
+C:\Users\Miguel\Desktop\transformice\Origem.cpp(24,6): warning C4101: 'vetorx': variável local não referenciada
+C:\Users\Miguel\Desktop\transformice\Origem.cpp(25,6): warning C4101: 'vetory': variável local não referenciada
   Transformice.vcxproj -> C:\Users\Miguel\Desktop\Transformice\Debug\Transformice.exe
