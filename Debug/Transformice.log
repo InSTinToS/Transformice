@@ -1,4 +1,5 @@
 ﻿  Origem.cpp
-C:\Users\Miguel\Desktop\transformice\Origem.cpp(24,6): warning C4101: 'vetorx': variável local não referenciada
-C:\Users\Miguel\Desktop\transformice\Origem.cpp(25,6): warning C4101: 'vetory': variável local não referenciada
+C:\Users\Miguel\Desktop\transformice\formWall.h(37,3): warning C4551: faltando lista de argumentos na chamada de função
+C:\Users\Miguel\Desktop\transformice\Origem.cpp(25,6): warning C4101: 'vetorx': variável local não referenciada
+C:\Users\Miguel\Desktop\transformice\Origem.cpp(26,6): warning C4101: 'vetory': variável local não referenciada
   Transformice.vcxproj -> C:\Users\Miguel\Desktop\Transformice\Debug\Transformice.exe

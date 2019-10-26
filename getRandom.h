@@ -1,12 +1,9 @@
 #ifndef GETRANDOM_H
 	#define GETRANDOM_H
 
-		int getRandom()
+		int getRandom(int min,int max)
 		{
 			static int Init = 0;
-
-			int min = 0;
-			int max = 1;
 
 			if (Init == 0) 
 			{
