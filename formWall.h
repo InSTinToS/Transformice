@@ -3,48 +3,36 @@
 	
 	#include "moveMouse.h"
 	#include "getRandom.h"
-	
+	#include "createForms.h"
+
 	using namespace std;
-	void putObjects(int matrix[9][9], int lairCount, int cheeseCount)
+
+	void putObjects	(int matrix[9][9], int lairCount, int cheeseCount)
 	{
-		al_init_image_addon;
-
-		ALLEGRO_BITMAP* lair = al_load_bitmap("edit/img/toca.png");
-		ALLEGRO_BITMAP* cheese = al_load_bitmap("edit/img/queijo.png");
-
-		int j = getRandom(0, 6);
-		int i = getRandom(0, 6);
+		int j = getRandom(1, 7);
+		int i = getRandom(1, 7);
 
 		if (matrix[i][j] == 0)
 		{
 			if (lairCount == 1)
 			{
-				int cordX1 = (i + 1) * 100;
-				int cordY1 = (j + 1) * 100;
-				al_draw_bitmap(cheese, cordX1, cordY1, NULL);
+				createCheese(i, j);
 				matrix[i][j] = 2;
 				cheeseCount++;
 			}
 			if (lairCount == 0)
 			{
-				int cordX1 = (i + 1) * 100;
-				int cordY1 = (j + 1) * 100;
-				al_draw_bitmap(lair, cordX1, cordY1, NULL);
+				createLair(i, j);
 				matrix[i][j] = 3;
 				lairCount++;
 			}
 		}
 
-		cout << "Cont cheese: " << cheeseCount << "\t" << "Cont mouse: " << lairCount << endl;
-
 		if (cheeseCount == 0 || lairCount == 0)
 			putObjects(matrix, lairCount, cheeseCount);
-		else {
-			cout << "(formWall.h)" << endl;
-		}
 	}
 
-	void formWall(ALLEGRO_COLOR cor)
+	void formWall	(int multiWidth)
 	{
 		const int size = 9;
 		int matrix[size][size];
@@ -64,34 +52,10 @@
 		{
 			for (int j = 0; j < 9; j++)
 			{
-				if (matrix[i][j] == 0) {
-					int cordX1 = (i + 1) * 100;
-					int cordY1 = (j + 1) * 100;
-					int cordX2 = cordX1 + 100;
-					int cordY2 = cordY1 + 100;
-
-					ALLEGRO_COLOR		lightBrown = al_map_rgb(210, 180, 140);
-					al_draw_filled_rectangle(cordX1, cordY1, cordX2, cordY2, lightBrown);
-				}
-
-				if (matrix[i][j] == 1) {
-					int cordX1 = (i + 1) * 100;
-					int cordY1 = (j + 1) * 100;
-					int cordX2 = cordX1 + 100;
-					int cordY2 = cordY1 + 100;
-					al_draw_filled_rectangle(cordX1, cordY1, cordX2, cordY2, cor);
-				}
-
-				if (matrix[i][j] == 9)
-				{
-					int cordX1 = (i + 1) * 100;
-					int cordY1 = (j + 1) * 100;
-					int cordX2 = cordX1 + 100;
-					int cordY2 = cordY1 + 100;
-					
-					ALLEGRO_COLOR black = al_map_rgb(255,255,255);
-					al_draw_filled_rectangle(cordX1, cordY1, cordX2, cordY2, black);
-				}
+				if (matrix[i][j] == 0)
+					createRectangleLight(multiWidth, i, j);
+				if (matrix[i][j] == 1)
+					createRectangleDark(multiWidth, i, j);
 			}
 		}
 
@@ -99,5 +63,4 @@
 		moveMouse(matrix);
 	}
 	
-
 #endif

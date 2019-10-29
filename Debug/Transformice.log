@@ -1,3 +1,4 @@
 ﻿  main.cpp
-C:\Users\Miguel\Desktop\transformice\formWall.h(10,3): warning C4551: faltando lista de argumentos na chamada de função
-LINK : fatal error LNK1168: não foi possível abrir C:\Users\Miguel\Desktop\Transformice\Debug\Transformice.exe para escrita
+C:\Users\Miguel\Desktop\Transformice\createForms.h(107,3): warning C4551: faltando lista de argumentos na chamada de função
+C:\Users\Miguel\Desktop\Transformice\createForms.h(116,3): warning C4551: faltando lista de argumentos na chamada de função
+  Transformice.vcxproj -> C:\Users\Miguel\Desktop\Transformice\Debug\Transformice.exe

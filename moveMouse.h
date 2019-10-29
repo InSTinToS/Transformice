@@ -1,104 +1,134 @@
 #ifndef MOVEMOUSE_H
 	#define MOVEMOUSE_H
-	//MOVIMENTOS
-	void moveRight(int matrix[9][9],int i, int j,ALLEGRO_COLOR lightBrown,ALLEGRO_BITMAP* mouse)
-	{
-		int x1 = (i + 1) * 100;
-		int y1 = (j + 1) * 100;
-		int x2 = x1 + 100;
-		int y2 = y1 + 100;
+	
+	#include <allegro5/allegro_image.h>
+	#include "createForms.h"
 
-		Sleep(500);
-		al_draw_filled_rectangle(x1, y1, x2, y2, lightBrown);
-		x1 = (i + 1 + 1) * 100;
-		y1 = (j + 1) * 100;
-		al_draw_bitmap(mouse, x1, y1, NULL);
-		al_flip_display();
-	}
-	void moveDown(int matrix[9][9], int i, int j, ALLEGRO_COLOR lightBrown, ALLEGRO_BITMAP* mouse)
-	{
-		int x1 = (i + 1) * 100;
-		int y1 = (j + 1) * 100;
-		int x2 = x1 + 100;
-		int y2 = y1 + 100;
+	using namespace std;
 
-		Sleep(500);
-		al_draw_filled_rectangle(x1, y1, x2, y2, lightBrown);
-		x1 = (i + 1) * 100;
-		y1 = (j + 1 + 1) * 100;
-		al_draw_bitmap(mouse, x1, y1, NULL);
-		al_flip_display();
-	}
-	void moveLeft(int matrix[9][9], int i, int j, ALLEGRO_COLOR lightBrown, ALLEGRO_BITMAP* mouse)
+	void generalMove(int matrix[9][9], int i, int j, int verificaToca, ALLEGRO_BITMAP* mouse)
 	{
-		int x1 = (i + 1) * 100;
-		int y1 = (j + 1) * 100;
-		int x2 = x1 + 100;
-		int y2 = y1 + 100;
+		int verificaRepete = 0;
 
-		Sleep(500);
-		al_draw_filled_rectangle(x1, y1, x2, y2, lightBrown);
-		x1 = (i + 1 - 1) * 100;
-		y1 = (j + 1) * 100;
-		al_draw_bitmap(mouse, x1, y1, NULL);
-		al_flip_display();
-	}
-	void moveUp(int matrix[9][9], int i, int j, ALLEGRO_COLOR lightBrown, ALLEGRO_BITMAP* mouse)
-	{
-		int x1 = (i + 1) * 100;
-		int y1 = (j + 1) * 100;
-		int x2 = x1 + 100;
-		int y2 = y1 + 100;
+		if (matrix[i + 1][j] == 1 || matrix[i + 1][j] == 9)
+			verificaRepete++;
+		if (matrix[i][j + 1] == 1 || matrix[i][j + 1] == 9)
+			verificaRepete++;
+		if (matrix[i - 1][j] == 1 || matrix[i - 1][j] == 9)
+			verificaRepete++;
+		if (matrix[i][j - 1] == 1 || matrix[i][j - 1] == 9)
+			verificaRepete++;
 
-		Sleep(500);
-		al_draw_filled_rectangle(x1, y1, x2, y2, lightBrown);
-		x1 = (i + 1) * 100;
-		y1 = (j + 1 - 1) * 100;
-		al_draw_bitmap(mouse, x1, y1, NULL);
-		al_flip_display();
-	}
-	//MOVIMENTO GERAL
-	void move(int matrix[9][9], int i, int j, ALLEGRO_BITMAP* mouse)
-	{
-		ALLEGRO_COLOR lightBrown = al_map_rgb(000, 000, 100);
-		int counter = 0;
-		if (matrix[i + 1][j] != 1)
-			counter++;
-		if (matrix[i][j + 1] != 1)
-			counter++;
-		if (matrix[i - 1][j] != 1)
-			counter++;
-		if (matrix[i][j - 1] != 1)
-			counter++;
-		if (counter == 3)
-			matrix[i][j] = 5;
+		if (verificaRepete == 4)
+			al_draw_filled_rectangle(0, 0, 100, 100, al_map_rgb(255, 0, 0));
 
-		if (matrix[i + 1][j] == 0)
+		if (verificaRepete == 3)
 		{
-			moveRight(matrix, i, j, lightBrown, mouse);
-			move(matrix, ++i, j, mouse);
+			if (matrix[i + 1][j] == 5)
+			{
+				createMoveToRight(i, j);
+				if (verificaToca == 0)
+				{
+					createLair(i, j);
+					verificaToca++;
+				}
+				al_flip_display();
+				matrix[i][j] = 5;
+				generalMove(matrix, ++i, j, verificaToca, mouse);
+			}
+
+			if (matrix[i][j + 1] == 5)
+			{
+				createMoveToDown(i, j);
+				if (verificaToca == 0)
+				{
+					createLair(i, j);
+					verificaToca++;
+				}
+				al_flip_display();
+				matrix[i][j] = 5;
+				generalMove(matrix, i, ++j, verificaToca, mouse);
+			}
+
+			if (matrix[i - 1][j] == 5) {
+				createMoveToLeft(i, j);
+				if (verificaToca == 0)
+				{
+					createLair(i, j);
+					verificaToca++;
+				}
+				al_flip_display();
+				matrix[i][j] = 5;
+				generalMove(matrix, --i, j, verificaToca, mouse);
+			}
+
+			if (matrix[i][j - 1] == 5)
+			{
+				createMoveToUp(i, j);
+				if (verificaToca == 0)
+				{
+					createLair(i, j);
+					verificaToca++;
+				}
+				al_flip_display();
+				matrix[i][j] = 5;
+				generalMove(matrix, i, --j, verificaToca, mouse);
+			}
+		}
+
+		if (matrix[i + 1][j] == 8)
+		{
+			createMoveToRight(i, j);
+			if (verificaToca == 0)
+			{
+				createLair(i, j);
+				verificaToca++;
+			}
+			al_flip_display();
+			matrix[i][j] = 5;
+			generalMove(matrix, ++i, j, verificaToca, mouse);
 		}
 
 		if (matrix[i][j + 1] == 0)
 		{
-			moveDown(matrix, i, j, lightBrown, mouse);
-			move(matrix, i, ++j, mouse);
+			createMoveToDown(i, j);
+			if (verificaToca == 0)
+			{
+				createLair(i, j);
+				verificaToca++;
+			}
+			al_flip_display();
+			matrix[i][j] = 5;
+			generalMove(matrix, i, ++j, verificaToca, mouse);
 		}
 
 		if (matrix[i - 1][j] == 0) {
-			moveLeft(matrix, i, j, lightBrown, mouse);
-			move(matrix, --i, j, mouse);
+			createMoveToLeft(i, j);
+			if (verificaToca == 0)
+			{
+				createLair(i, j);
+				verificaToca++;
+			}
+			al_flip_display();
+			matrix[i][j] = 5;
+			generalMove(matrix, --i, j, verificaToca, mouse);
 		}
 
 		if (matrix[i][j - 1] == 0)
 		{
-			moveUp(matrix, i, j, lightBrown, mouse);
-			move(matrix, i, --j, mouse);
+			createMoveToUp(i, j);
+			if (verificaToca == 0)
+			{
+				createLair(i, j);
+				verificaToca++;
+			}
+			al_flip_display();
+			matrix[i][j] = 5;
+			generalMove(matrix, i, --j, verificaToca, mouse);
 		}
-		
 	}
-	//RATO NO LAR 
-	void putMouseInLair(int matrix[9][9], ALLEGRO_BITMAP* mouse)
+
+	void putMouseInLair	(int matrix[9][9], ALLEGRO_BITMAP* mouse)
 	{
 		for (int i = 0; i < 9; i++)
 		{
@@ -111,7 +141,7 @@
 				
 					al_draw_bitmap(mouse, cordX1, cordY1, NULL);
 					al_flip_display();
-					move(matrix, i, j, mouse);
+					generalMove(matrix, i, j, 0, mouse);
 
 					i = 9;
 					j = 9;
@@ -119,8 +149,8 @@
 			}
 		}
 	}
-	//MAIN
-	void moveMouse(int matrix[9][9]) 
+
+	void moveMouse		(int matrix[9][9]) 
 	{
 		ALLEGRO_BITMAP* mouse = al_load_bitmap("edit/img/rato.png");
 		putMouseInLair(matrix, mouse);
