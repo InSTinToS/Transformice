@@ -1,3 +1,4 @@
+
 #include <allegro5/allegro.h>
 #include <allegro5/display.h>
 #include <allegro5/allegro_primitives.h>
@@ -5,15 +6,9 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_image.h>
 
-#include <iostream> 
 #include <windows.h>
-#include <time.h>
 
 #include "formWall.h"
-#include "destroyDisplay.h"
-
-using namespace std;
-
 
 int main()
 {
@@ -40,10 +35,8 @@ int main()
 	al_draw_filled_rectangle(0, 0, width, height, skyBlue);
 	al_draw_text(font, darkBrown, width / 2, posTexto, ALLEGRO_ALIGN_CENTRE, "T R A N S F O R M I C E  ");
 
-	formWall(100);
-
+	formWall(100, display);
 	al_rest(5);
-	al_destroy_display(display);
 
 	return 0;
 }
