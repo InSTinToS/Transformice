@@ -36,7 +36,6 @@ int main()
 	al_draw_text(font, darkBrown, width / 2, txtPos, ALLEGRO_ALIGN_CENTRE, "T R A N S F O R M I C E  ");
 
 	put_Limit_and_Walls(100, display);
-	al_rest(5);
 
 	return 0;
 }

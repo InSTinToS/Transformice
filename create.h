@@ -1,7 +1,7 @@
 #ifndef CREATE_H
 	#define CREATE_H
 
-	#define time2 400
+	#define time2 200
 
 	void createLightRectangle	(int multiWidth,int i, int j)
 	{
@@ -45,7 +45,7 @@
 		al_draw_bitmap(cheese, cordX1, cordY1, NULL);
 	}
 
-	int createMoveToLeft		(int i, int j, ALLEGRO_COLOR cor)
+	void createMoveToLeft		(int i, int j, ALLEGRO_COLOR cor)
 	{
 		ALLEGRO_BITMAP* mouse = al_load_bitmap("edit/img/rato.png");
 
@@ -62,10 +62,10 @@
 		y1 = (j + 1) * 100;
 
 		al_draw_bitmap(mouse, x1, y1, NULL);
-		return 0;
+		al_flip_display();
 	}
 
-	int createMoveToUp			(int i, int j, ALLEGRO_COLOR cor)
+	void createMoveToUp			(int i, int j, ALLEGRO_COLOR cor)
 	{
 		ALLEGRO_BITMAP* mouse = al_load_bitmap("edit/img/rato.png");
 
@@ -82,10 +82,10 @@
 		y1 = (j + 1 - 1 ) * 100;
 
 		al_draw_bitmap(mouse, x1, y1, NULL);
-		return 1;
+		al_flip_display();
 	}
 
-	int createMoveToRight		(int i,int j, ALLEGRO_COLOR cor)
+	void createMoveToRight		(int i,int j, ALLEGRO_COLOR cor)
 	{
 		ALLEGRO_BITMAP* mouse = al_load_bitmap("edit/img/rato.png");
 
@@ -102,10 +102,10 @@
 		y1 = (j + 1) * 100;
 
 		al_draw_bitmap(mouse, x1, y1, NULL);
-		return 2;
+		al_flip_display();
 	}
 
-	int createMoveToDown		(int i, int j, ALLEGRO_COLOR cor)
+	void createMoveToDown		(int i, int j, ALLEGRO_COLOR cor)
 	{
 		ALLEGRO_BITMAP* mouse = al_load_bitmap("edit/img/rato.png");
 
@@ -122,7 +122,7 @@
 		y1 = (j + 1 + 1) * 100;
 
 		al_draw_bitmap(mouse, x1, y1, NULL);
-		return 3;
+		al_flip_display();
 	}
 
 #endif

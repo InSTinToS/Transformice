@@ -43,10 +43,9 @@
 					int cordY1 = (j + 1) * 100;
 				
 					al_draw_bitmap(mouse, cordX1, cordY1, NULL);
-					al_flip_display();
 					
-					int vector[1000];
-					generalMove(matrix, i, j, mouse, display, vector, 0, 0, 0);
+					al_flip_display();
+					masterMove(matrix, i, j, display);
 
 					i = 9;
 					j = 9;
