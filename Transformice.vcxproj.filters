@@ -27,7 +27,7 @@
     <ClInclude Include="moveMouse.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="createForms.h">
+    <ClInclude Include="create.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>

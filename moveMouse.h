@@ -2,15 +2,20 @@
 	#define MOVEMOUSE_H
 
 	#include "getRandom.h"
-	#include "createForms.h"
+	#include "create.h"
 
-	void generalMove(int matrix[9][9], int i, int j, ALLEGRO_BITMAP* mouse, ALLEGRO_DISPLAY* display, int last)
+	using namespace std;
+
+	bool verificaQueijo(int matrix[9][9], int i, int j)
 	{
-		ALLEGRO_COLOR blue = al_map_rgb(60, 0, 180);
-		ALLEGRO_COLOR pink = al_map_rgb(255,0,127);
+		if(matrix[i][j] == 4)
+			return true;
+		return false;
+	}
 
-		int counterWalls = 0 ;
-
+	int verificaSaida(int matrix[9][9], int i, int j)
+	{
+		int counterWalls = 0;
 		if(matrix[i - 1][j] < 1)
 			counterWalls++;
 			
@@ -22,131 +27,163 @@
 			
 		if(matrix[i][j + 1] < 1)
 			counterWalls++;
+		return counterWalls;
+	}
 
-		// criar parede se for sem saida cor rosa
-		if(counterWalls==3)
+	void generalMove(int matrix[9][9], int i, int j, ALLEGRO_BITMAP* mouse, ALLEGRO_DISPLAY* display, int vector[],int k, int capture, int verify)
+	{
+		ALLEGRO_COLOR blue = al_map_rgb(60, 0, 180);
+		ALLEGRO_COLOR pink = al_map_rgb(255, 0, 127);
+		ALLEGRO_COLOR yellow = al_map_rgb(249, 166, 2);
+
+		int counterWalls =  verificaSaida(matrix, i, j);
+
+		if(capture == 1)
+		{
+			if (verify == 0) {
+				cout << "primeiro vector: ";
+				cout << vector[k] << endl;
+				cout << "primeiro k: ";
+				cout << "k = " << k << endl;
+				k = k - 1;
+			}
+			cout << "k = " << k << endl;
+			cout << vector[k] << endl;
+
+			if (vector[k] == 0)
+			{
+				cout << "moveu para: " << createMoveToRight(i , j, yellow) << endl;
+				al_flip_display;
+				generalMove(matrix, ++i, j, mouse, display, vector, --k, 1, 1);
+			}
+			else if (vector[k] == 1)
+			{
+				cout << "moveu para: " << createMoveToDown(i , j, yellow) << endl;
+				al_flip_display;
+				generalMove(matrix, i, ++j, mouse, display, vector, --k, 1, 1);
+			}
+			else if (vector[k] == 2)
+			{
+				cout << "moveu para: " << createMoveToLeft(i , j, yellow) << endl;
+				al_flip_display;
+				generalMove(matrix, --i, j, mouse, display, vector, --k, 1, 1);
+			}
+			else if (vector[k] == 3)
+			{
+				cout << "moveu para: " << createMoveToUp(i , j, yellow) << endl;
+				al_flip_display;
+				generalMove(matrix, i, --j, mouse, display, vector, --k, 1, 1);
+			}
+			else if (k == -1)
+			{
+				cout << "k == -1";
+			}
+			else
+			{
+				cout << "algo deu errado";
+			}
+		}
+		
+		else if(counterWalls == 3)
 		{
 			if(matrix[i - 1][j] > 0 )
 			{
-				matrix[i][j] = 0;
-				last = 0;
-				createMoveToLeft(i , j, pink);				
+				vector[k] = createMoveToLeft(i , j, pink);
 				al_flip_display();
-				generalMove(matrix, --i, j, mouse, display, last);
+				matrix[i][j] = 0;
+				capture = verificaQueijo(matrix, i, j);
+				generalMove(matrix, --i, j, mouse, display,vector, ++k, capture, 0);
 			}
 				
-			if(matrix[i][j - 1]> 0)
+			if(matrix[i][j - 1] > 0)
 			{
-				createMoveToUp(i , j, pink);
+				vector[k] = createMoveToUp(i , j, pink);
 				al_flip_display();
+				capture = verificaQueijo(matrix, i, j);
 				matrix[i][j] = 0;
-				last=1;
-				generalMove(matrix, i, --j, mouse, display,last);
+				generalMove(matrix, i, --j, mouse, display,vector, ++k, capture, 0);
 			}
 				
-			if(matrix[i + 1][j]> 0)
+			if(matrix[i + 1][j] > 0)
 			{
-				createMoveToRight(i , j, pink);
+				vector[k] = createMoveToRight(i , j, pink);
 				al_flip_display();
+				capture = verificaQueijo(matrix, i, j);
 				matrix[i][j] = 0;
-				last=2;
-				generalMove(matrix, ++i, j, mouse, display,last);
+				generalMove(matrix, ++i, j, mouse, display,vector, ++k, capture, 0);
 			}
 				
 			if(matrix[i][j + 1] > 0)
 			{
-				createMoveToDown(i , j, pink);
+				vector[k] = createMoveToDown(i , j, pink);
 				al_flip_display();
+				capture = verificaQueijo(matrix, i, j); 
 				matrix[i][j] = 0;
-				last=3;
-				generalMove(matrix, i, ++j, mouse, display,last);
+				generalMove(matrix, i, ++j, mouse, display,vector, ++k, capture, 0);
 			}
 		}
-		// escolhas normais aleatorias
+
 		else if (counterWalls < 3)
 		{
 			int choice = getRandom(0,3);
 			switch (choice)
 			{
 				case 0:
-					if (matrix[i - 1][j] >= 1 && last != 2)
+					if (matrix[i - 1][j] >= 1)
 					{
-						matrix[i][j] = 1;
-						last = 	createMoveToLeft(i, j, blue);;
+						vector[k] = createMoveToLeft(i, j, blue);
 						al_flip_display();
-						generalMove(matrix, --i, j, mouse, display,last);
+						capture = verificaQueijo(matrix, i, j);
+						matrix[i][j] = 1;
+						generalMove(matrix, --i, j, mouse, display, vector, ++k, capture, 0);
 					}
 					else
-						generalMove(matrix, i, j, mouse, display,last);
-					break;
+						generalMove(matrix, i, j, mouse, display, vector,k, capture, 0);
+				break;
 
 				case 1:
-					if (matrix[i][j - 1] >= 1 && last != 3)
+					if (matrix[i][j - 1] >= 1)
 					{
-						matrix[i][j] = 1;
-						last = 	createMoveToUp(i, j, blue);;
+						vector[k] = createMoveToUp(i, j, blue);
 						al_flip_display();
-						generalMove(matrix, i, --j, mouse, display,last);
+						capture = verificaQueijo(matrix, i, j);
+						matrix[i][j] = 1;
+						generalMove(matrix, i, --j, mouse, display,vector, ++k, capture, 0);
 					}
 					else
-						generalMove(matrix, i, j, mouse, display,last);
-					break;
+						generalMove(matrix, i, j, mouse, display, vector, k, capture, 0);
+				break;
 
 				case 2:
-					if (matrix[i + 1][j] >= 1 && last != 0)
+					if (matrix[i + 1][j] >= 1)
 					{
-						matrix[i][j] = 1;
-						last = 	createMoveToRight(i, j, blue);;
+						vector[k] = createMoveToRight(i, j, blue);
 						al_flip_display();
-						generalMove(matrix, ++i, j, mouse, display,last);
+						capture = verificaQueijo(matrix, i, j);
+						matrix[i][j] = 1;
+						generalMove(matrix, ++i, j, mouse, display, vector, ++k, capture, 0);
 					}
 					else
-						generalMove(matrix, i, j, mouse, display,last);
-					break;
+						generalMove(matrix, i, j, mouse, display, vector, k, capture, 0);
+				break;
+
 				case 3:
-					if (matrix[i][j + 1] >= 1 && last != 1)
+					if (matrix[i][j + 1] >= 1)
 					{
-						matrix[i][j] = 1;
-						last = 	createMoveToDown(i, j, blue);;
+						vector[k] = createMoveToDown(i, j, blue);
 						al_flip_display();
-						generalMove(matrix, i, ++j, mouse, display,last);
+						capture = verificaQueijo(matrix, i, j);
+						matrix[i][j] = 1;
+						generalMove(matrix, i, ++j, mouse, display, vector, ++k, capture, 0);
 					}
 					else
-						generalMove(matrix, i, j, mouse, display,last);
-					break;
+						generalMove(matrix, i, j, mouse, display, vector, k, capture, 0);
+				break;
 			}
 		}
+		
 		Sleep(1000);
 		al_destroy_display(display);
 	}
-
-	void putMouseInLair	(int matrix[9][9], ALLEGRO_BITMAP* mouse,ALLEGRO_DISPLAY* display)
-	{
-		for (int i = 0; i < 9; i++)
-		{
-			for (int j = 0; j < 9; j++)
-			{
-				if (matrix[i][j] == 4) 
-				{
-					int cordX1 = (i + 1) * 100;
-					int cordY1 = (j + 1) * 100;
-				
-					al_draw_bitmap(mouse, cordX1, cordY1, NULL);
-					al_flip_display();
-					generalMove(matrix, i, j, mouse,display,-1);
-
-					i = 9;
-					j = 9;
-				}
-			}
-		}
-	}
-
-	void moveMouse		(int matrix[9][9],ALLEGRO_DISPLAY* display) 
-	{
-		ALLEGRO_BITMAP* mouse = al_load_bitmap("edit/img/rato.png");
-		putMouseInLair(matrix, mouse, display);
-	}
-
 #endif 
 

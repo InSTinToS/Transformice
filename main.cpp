@@ -8,7 +8,7 @@
 
 #include <windows.h>
 
-#include "formWall.h"
+#include "put.h"
 
 int main()
 {
@@ -20,22 +20,22 @@ int main()
 
 	int width = 1000;
 	int height = 1000;
-	int tamFont = 32;
-	float posTexto, border;
+	int fontSize = 32;
+	float txtPos, border;
 
 	ALLEGRO_DISPLAY* display = al_create_display(width, height);
-	ALLEGRO_FONT* font = al_load_font("edit/font/soopafre.ttf", tamFont, NULL);
+	ALLEGRO_FONT* font = al_load_font("edit/font/soopafre.ttf", fontSize, NULL);
 
 	ALLEGRO_COLOR skyBlue = al_map_rgb(176, 224, 230);
 	ALLEGRO_COLOR darkBrown = al_map_rgb(139, 69, 19);
 
-	posTexto = (height * 0.05) - (tamFont / 2) - 5;
+	txtPos = (height * 0.05) - (fontSize / 2) - 5;
 	border = ((width * 0.05) / 5);
 
 	al_draw_filled_rectangle(0, 0, width, height, skyBlue);
-	al_draw_text(font, darkBrown, width / 2, posTexto, ALLEGRO_ALIGN_CENTRE, "T R A N S F O R M I C E  ");
+	al_draw_text(font, darkBrown, width / 2, txtPos, ALLEGRO_ALIGN_CENTRE, "T R A N S F O R M I C E  ");
 
-	formWall(100, display);
+	put_Limit_and_Walls(100, display);
 	al_rest(5);
 
 	return 0;
