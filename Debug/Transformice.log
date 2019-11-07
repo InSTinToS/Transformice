@@ -1,6 +1,9 @@
 ﻿  main.cpp
-C:\Users\Miguel\Desktop\Transformice\create.h(30,3): warning C4551: faltando lista de argumentos na chamada de função
-C:\Users\Miguel\Desktop\Transformice\create.h(40,3): warning C4551: faltando lista de argumentos na chamada de função
-C:\Users\Miguel\Desktop\Transformice\moveMouse.h(158): warning C4715: 'generalMove': nem todos os caminhos de controle retornam um valor
-C:\Users\Miguel\Desktop\Transformice\getRandom.h(27): warning C4715: 'getRandomForb': nem todos os caminhos de controle retornam um valor
+C:\Users\Miguel\Desktop\Transformice\create.h(52,3): warning C4551: faltando lista de argumentos na chamada de função
+C:\Users\Miguel\Desktop\Transformice\create.h(62,3): warning C4551: faltando lista de argumentos na chamada de função
+C:\Users\Miguel\Desktop\Transformice\main.cpp(55,6): warning C4101: 'choice': variável local não referenciada
+C:\Users\Miguel\Desktop\Transformice\random.h(27): warning C4715: 'randomForb': nem todos os caminhos de controle retornam um valor
+C:\Users\Miguel\Desktop\Transformice\movement.h(154): warning C4715: 'generalMove': nem todos os caminhos de controle retornam um valor
+C:\Users\Miguel\Desktop\Transformice\main.cpp(45): warning C4715: 'findMouseJ': nem todos os caminhos de controle retornam um valor
+C:\Users\Miguel\Desktop\Transformice\main.cpp(30): warning C4715: 'findMouseI': nem todos os caminhos de controle retornam um valor
   Transformice.vcxproj -> C:\Users\Miguel\Desktop\Transformice\Debug\Transformice.exe

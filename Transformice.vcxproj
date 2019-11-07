@@ -185,9 +185,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="create.h" />
-    <ClInclude Include="getRandom.h" />
-    <ClInclude Include="formWall.h" />
-    <ClInclude Include="moveMouse.h" />
+    <ClInclude Include="movement.h" />
+    <ClInclude Include="put.h" />
+    <ClInclude Include="random.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
