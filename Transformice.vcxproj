@@ -188,6 +188,7 @@
     <ClInclude Include="movement.h" />
     <ClInclude Include="put.h" />
     <ClInclude Include="random.h" />
+    <ClInclude Include="validator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

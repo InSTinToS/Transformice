@@ -16,14 +16,19 @@
 
 		return (rand() % (max - min + 1) + min);
 	}
+	
+	/* 
+		Linha 7 até 18 
+		Ref: https://faq.cprogramming.com/cgi-bin/smartfaq.cgi?answer=1042005782&id=1043284385 
+	*/
 
-	int randomForb	(int min,int max,int forb)
+	int randomExcept	(int min,int max,int except)
 	{
 		int num = random(min, max);
-		if (num != forb)
+		if (num != except)
 			return num;
 		else
-			randomForb(min,max, forb);
+			randomExcept(min,max, except);
 	}
 
 #endif
